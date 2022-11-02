@@ -15,7 +15,7 @@ import pandas as pd
 
 # Importar el data set
 dataset = pd.read_csv('Salary_Data.csv')
-X = dataset.iloc[:, :-1].values
+X = dataset.iloc[:, :-1].values # Iloc serveix per seleccionar Columnes i el values per convertir en array
 y = dataset.iloc[:, 1].values
 
 
@@ -24,13 +24,17 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 1/3, random_state = 0)
 
 
-# Escalado de variables
+# Escalado de variables. Aqui cridem a la funcio StandarScaler que es qui fa la feina
+# Llavos hem de fer dues coses primer el fit, de ajustar i crear els calculs
+# i despres el transform. A la linia de X_train ho dem tot junt amb "fit_transfor"
+# pero a la de test nomes cal fer els transform. Els calculs ja queden guardars a l'objecte sc_X
+# al haver fet el fit anterior
 """
 from sklearn.preprocessing import StandardScaler
 sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
-X_test = sc_X.transform(X_test)
-"""
+X_test = sc_X.transform(X_test)"""
+
 
 # Crear modelo de Regresión Lienal Simple con el conjunto de entrenamiento
 from sklearn.linear_model import LinearRegression
@@ -39,6 +43,7 @@ regression.fit(X_train, y_train)
 
 # Predecir el conjunto de test
 y_pred = regression.predict(X_test)
+
 
 # Visualizar los resultados de entrenamiento
 plt.scatter(X_train, y_train, color = "red")
